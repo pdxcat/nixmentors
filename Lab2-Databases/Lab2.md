@@ -153,7 +153,7 @@ SQL
 
  - create a table called characters with columns name as the primary key (values in column can't be repeated), rank, position, series, and actor
 
-     `create table characters(name varchar(100) primary key, rank varchar(200), position varchar(200), actor varchar(100));`
+     `create table characters(name varchar(100) primary key, rank varchar(100), position varchar(100), actor varchar(100));`
 
  - look at your table's schema (use `\d`)
 
@@ -206,7 +206,7 @@ Then we can use joins to get data out of both tables with one query.
 
    - Option 1: add constraints
 
-        alter table star_trek_characters add constraint rank_constraint check (rank = 'Lt. Commander' OR rank = 'Captain' OR rank = 'Commander' [...]);
+        alter table characters add constraint rank_constraint check (rank = 'Lt. Commander' OR rank = 'Captain' OR rank = 'Commander' [...]);
 
    - Option 2: separate values that have order into a different table
      - create the new table called 'ranks' with two columns, id (primary key) and rank
@@ -219,7 +219,7 @@ Then we can use joins to get data out of both tables with one query.
 
      - get reasonable data out of both of your tables
 	 
-            select star_trek_characters.name, rank.name from star_trek_characters join rank on star_trek_characters.rank_id = rank.id;
+            select characters.name, rank.name from characters join rank on characters.rank_id = rank.id;
 
    - Challenge: Experiment with different constraints. Maybe set a minimum age for characters (who needs Wesley anyways).
    - Challenge: Create another reference table (e.g. series) and alter a column to refer to that table
