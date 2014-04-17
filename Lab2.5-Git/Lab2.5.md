@@ -1,6 +1,12 @@
 Intro to Git and Github
 =======================
 
+
+## Totally fixed this
+
+
+
+
 You will not need a vagrant vm for this lab. The lab computers all have git installed.
 
 Why Version Control?
