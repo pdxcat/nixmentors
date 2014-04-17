@@ -294,7 +294,7 @@ Resolving Merge Conflicts
         $ echo "nonderp" > derpfile
         $ git add derpfile
         $ git commit -m "non derp commit"
-        $ git merge derp
+        $ git merge newbranch
 
 - At this point you have made two changes to the same line of the same file, in two different branches. Git does not know which change you mean to keep in master. If you run `git status` it will tell you which problem file has been modified on both branches. Open it in your editor. You should see something like this:
 
