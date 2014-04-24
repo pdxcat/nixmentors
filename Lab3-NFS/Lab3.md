@@ -206,7 +206,7 @@ $ ls -l /data/
 ```
 Change the perms on the directories so anybody in group datashare can create and edit files on them (on nfsserver)
 ```shell
-$ chmod 664 /data/share*
+$ chmod 775 /data/share*
 ```
 
 ### /etc/exports
