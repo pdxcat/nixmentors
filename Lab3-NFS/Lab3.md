@@ -37,11 +37,11 @@ This file can be your reference for which machines have which names and ip addre
 ### Vagrant up
 
 ```shell
-$ vagrant up
+vagrant up
 ```
 
 ```shell
-$ vagrant status
+vagrant status
 
 Current machine states:
 
@@ -60,13 +60,13 @@ VM, run `vagrant status NAME`.
 Open up several terminal windows, change directory on all of them into the Lab3 directory.
 
 ```shell
-$ vagrant ssh nfsserver
+vagrant ssh nfsserver
 ```
 
 And in a different window:
 
 ```shell
-$ vagrant ssh nfsclient1
+vagrant ssh nfsclient1
 ```
 
 ### Exercises
@@ -77,10 +77,10 @@ $ vagrant ssh nfsclient1
 
 From one of the hosts:
 ```shell
-$ ping 192.168.1.10
-$ ping 192.168.1.11
-$ ping 192.168.1.12
-$ ping 192.168.1.13
+ping 192.168.1.10
+ping 192.168.1.11
+ping 192.168.1.12
+ping 192.168.1.13
 ```
 
 * View the routing table for your virtual machines
@@ -107,31 +107,31 @@ Iface: Interface to which packets are sent to
 - mike:   uid of your choice
 
 ```shell
-$ sudo useradd -u 2313 ashley
-$ sudo useradd -u 2121 bob
-$ sudo useradd -u $UID mike
+sudo useradd -u 2313 ashley
+sudo useradd -u 2121 bob
+sudo useradd -u $UID mike
 ```
-You can see some information about the users with ``id $USER``
+You can see some information about the users with ``id <username>``
 
 * Set passwords for the users (including root)
 
 ```shell
-$ sudo passwd $USERNAME
+$ sudo passwd <username>
 ```
 
 * Create a file foo.txt with plain text in it, and copy it using scp from one host to another using your created users
 
 As each of the users you just created (on any host), create a file foo.txt and send it to different hosts (have destinations be different for each file)
 ```shell
-$ sudo su $USERNAME (not just for becoming root 0.0)
-$ echo "I AM A FILE!" > foo.txt
-$ scp $FILE_TO_SEND $USERNAME@$DEST_IP:$DEST_PATH
+sudo su <username> (not just for becoming root 0.0)
+echo "I AM A FILE!" > foo.txt
+scp <file to send> <username>@<destination ip>:<destination path>
 
 #Leaving out the username will use the user logged in as by default
 #ip address can be replaced with hostname if set
-#Leaving out the $DEST_PATH will use /home/$USER by default
+#Leaving out the destination path will use /home/$USER by default
 ```
-Verify that the file was sent successfully by running ``ls /home/$USER`` on the destination host.
+Verify that the file was sent successfully by running ``ls /home/<username>`` on the destination host.
 
 Run ``exit`` to go back to root user
 
@@ -161,13 +161,13 @@ On a conceptual level, NFS is one computer letting another computer use its stor
 * Install the NFS packages on each of the hosts
 
 ```shell
-$ sudo yum install nfs-utils
+sudo yum install nfs-utils
 ```
 
 * Start the daemon on each of the hosts
 
 ```shell
-$ sudo service nfs start
+sudo service nfs start
 ```
 
 * Get NFS service to start upon booting
@@ -180,33 +180,33 @@ Turn on levels 3,4,5 with ``chkconfig nfs on`` (3: runs the service under a mult
 
 On nfsserver run:
 ```shell
-$ sudo mkdir -p /data/share{1,2,3,4}
+sudo mkdir -p /data/share{1,2,3,4}
 ```
 Create a group for users that should have access to the shares on each of the hosts
 ```shell
-$ sudo groupadd -g 1050 datashare
+sudo groupadd -g 1050 datashare
 #NOTE: group ids 999 and below are usually reserved for system accounts
 ```
 Add the users you created (and root) to the group you just created on each of the hosts
 ```shell
-$ usermod -a -G datashare $USER
+usermod -a -G datashare <username>
 ```
 Check the which groups the user is a member of
 ```shell
-$ groups $USER
+groups <username>
 ```
 
 Give group ownership of the data shares to group datashare (on nfsserver)
 ```shell
-$ chgrp datashare /data/share*
+chgrp datashare /data/share*
 ```
 Check the ownership of the shares (on nfsserver)
 ```shell
-$ ls -l /data/
+ls -l /data/
 ```
 Change the perms on the directories so anybody in group datashare can create and edit files on them (on nfsserver)
 ```shell
-$ chmod 775 /data/share*
+chmod 775 /data/share*
 ```
 
 ### /etc/exports
@@ -223,10 +223,10 @@ We need to open ports 2049 (default port for nfs) and 111 (default port for port
 
 Run these commands on nfsserver
 ```shell
-$ sudo iptables -I INPUT -p tcp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 2049 -j ACCEPT
-$ sudo iptables -I INPUT -p udp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 2049 -j ACCEPT
-$ sudo iptables -I INPUT -p tcp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 111 -j ACCEPT
-$ sudo iptables -I INPUT -p udp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 111 -j ACCEPT
+sudo iptables -I INPUT -p tcp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 2049 -j ACCEPT
+sudo iptables -I INPUT -p udp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 2049 -j ACCEPT
+sudo iptables -I INPUT -p tcp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 111 -j ACCEPT
+sudo iptables -I INPUT -p udp -s 192.168.1.0/24 -m state --state NEW,RELATED,ESTABLISHED --dport 111 -j ACCEPT
 ```
 This will add some rules to iptables that will allow nfs request packets to be accepted on nfsserver.  
 ``-I INPUT`` specifies what will be done with the packets. Option "INPUT" means this host will be recieving packets.  
@@ -238,8 +238,8 @@ This will add some rules to iptables that will allow nfs request packets to be a
 
 Save the changes and restart the service
 ```shell
-$ sudo service iptables save
-$ sudo service iptables restart
+sudo service iptables save
+sudo service iptables restart
 ```
 Check whether the settings were saved with ``iptables -L``
 
@@ -254,24 +254,24 @@ Execute ``exportfs -rv`` on nfsserver
 * Mount the filesystem on nfsclient1
 
 ```shell
-$ sudo mount -t nfs nfsserver:/data/share1 /mnt
+sudo mount -t nfs nfsserver:/data/share1 /mnt
 ```
 Check if the FS has been mounted
 ```shell
-$ mount | grep nfsserver
+mount | grep nfsserver
 ```
 You should get some information on about the mounted FS.
 
 su into another user and try to make a file on the mounted filesystem
 ```shell
-$ touch /mnt/testfile
+touch /mnt/testfile
 ```
 Now mount share1 on another nfs_client. Can you see testfile there?
 su into the same user and edit the file. Go back to nfsclient1 and look at the file. Can you see the changes?
 
 Dont forget to unmount the filesystems when you are done with them
 ```shell
-$ umount /mnt
+umount /mnt
 ```
 
 NOTE: If you try to create a file as root on a share with root_squash on (on by default), it will be created under user "nobody".
@@ -326,11 +326,11 @@ Lets add share1 to be mounted on startup. We shouldnt mount this on /mnt because
 
 Create a directory any of the nfsclient1 for /data/share1 to me mounted to
 ```shell
-$ sudo mkdir /datashare
+sudo mkdir /datashare
 ```
 Now lets add this NFS share to be mounted on startup.
 ```shell
-$ sudo vim /etc/fstab
+sudo vim /etc/fstab
 
 #Though the file does not have headers for the columns, this is what each column specifies
 # Device                   mountpoint   fs-type   options       dump  fsckord
@@ -351,7 +351,7 @@ You can set filesystems to be automatically mounted when it is needed. This coul
 
 Install the autofs package on nfsclient2
 ```
-$ sudo yum install autofs
+sudo yum install autofs
 ```
 The primary configuration file for autofs is /etc/auto.master . We are going to create a automount point for share3
 
@@ -371,7 +371,7 @@ More information on configurations for these files can be found at http://www.ce
 
 Restart autofs
 ```
-$ sudo service autofs restart
+sudo service autofs restart
 ```
 
 * Check to see if automount works
