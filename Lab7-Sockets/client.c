@@ -18,7 +18,11 @@ int main(int argc, char** argv){
   int desired_port = 8080;
   char* message = "Hello world\n";
   int bool_opt;
-  socklen_t bool_opt_len = sizeof(bool_opt);
+  // socklen_t bool_opt_len = sizeof(bool_opt);
+  socklen_t bool_opt_len = 32;
+  // sizeof() returns a length in bytes. connect() expects a number that represents an int, but
+  // it expects it in bits. Hardcoding the above value may cause unexpected behavior with other
+  // socket types, but this shouldn't be relevant for ipv4 connections (32 bits by definition).
 
   if(sock == -1){
     fprintf(stderr, "Failed to open socket\n");

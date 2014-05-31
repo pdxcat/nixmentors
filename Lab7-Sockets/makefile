@@ -6,5 +6,9 @@ server:
 
 all: client server
 
+run:
+	./server &
+	./client
+
 clean:
-	rm -r *.gch *.o *.a server client
+	rm -r *.gch *.o *.a server client 2> /dev/null
