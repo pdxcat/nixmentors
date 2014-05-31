@@ -87,10 +87,11 @@ int main(int argc, char** argv){
       exit(1);
     }
     read_index += read_size;
+    buffer[read_index] = '\0';
   }
 
   // Display what we read from the remote host.
-  fprintf( stdout, "The remote server transmitted \"%s\"", buffer );
+  fprintf( stdout, "The remote server transmitted \"%s\"\n", buffer );
 
   // Clean up and go home.
   close(sock);
