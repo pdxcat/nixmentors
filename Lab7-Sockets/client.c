@@ -37,57 +37,6 @@ int main(int argc, char** argv){
     exit(1);
   }
 
-  // Attempt to bind on the desired address and port
-  status = bind(sock, (struct sockaddr *) &server_address, sizeof(server_address));
-
-  if(status == -1){
-    fprintf(stderr, "Failed to bind socket, error no: %i\n", errno);
-    exit(1);
-  }
-
-  // Start listening for new connections, allow up to 5 connections to queue without being accepted
-  status = listen(sock, 5);
-
-  if(status == -1){
-    fprintf(stderr, "Failed to listen to address\n");
-    exit(1);
-  }
-
-  accept_count = 0;
-  // Accept five new connection before exiting
-  while(accept_count < 5){
-    client_address_len = sizeof(client_address);
-    connection = accept(sock, (struct sockaddr *) &client_address, &client_address_len);
-    if(connection == -1){
-      fprintf(stderr, "Accept failed for some reason\n");
-      exit(1);
-    }
-    printf("Got a new connection\n");
-
-    // Fork a new process to handle the new connection
-    connection_pid = fork();
-    
-    // In the child proccess
-    if(connection_pid == 0){
-      write(connection, message, strlen(message));
-      status = shutdown(connection, SHUT_RDWR);
-      if(status == -1){
-        fprintf(stderr, "Failed to shutdown the connection\n");
-      }
-      close(connection);
-    }
-    
-    // When forking fails
-    if(connection_pid == -1){
-        fprintf(stderr, "Failed to fork a new process to handle the new connection\n");
-        close(connection);
-        close(sock);
-        exit(1);
-    }
-
-    accept_count++;
-  }
-
   close(sock);
 
   printf("Goodbye!\n");
