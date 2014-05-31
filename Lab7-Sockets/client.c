@@ -17,15 +17,15 @@ int main(int argc, char** argv){
   int desired_port = 8080;
   char* message = "Hello world\n";
   // Set the remote address to use.
-  if( argc > 0 )
+  if( argc > 1 )
     strncpy(desired_address, argv[1], 15 );
   else {
     fprintf( stdout, "No remote address specified, defaulting to localhost\n" );
     strcpy(desired_address, "127.0.0.1");
   }
   // Set the remote port to use, if specified.
-  if( argc > 1 )
-    desired_port = *(int*)argv[2];
+  if( argc > 2 )
+    desired_port = atoi(argv[2]);
   else
     fprintf( stdout, "No remote port specified, defaulting to 8080\n" );
 
@@ -46,9 +46,8 @@ int main(int argc, char** argv){
   status = inet_aton(desired_address, &server_address.sin_addr);
   // Make sure the IP address was translated correctly - a failure at this stage may mean we got
   // a bad address.
-  if(status == 0){
-    fprintf(stderr, "Failed to parse address: %s\n", desired_address );
-    fprintf( stderr, "ERRNO: %d, Error: %s\n", errno, strerror(errno) );
+  if(status == -1){
+    fprintf(stderr, "Failed to parse address: %s\nERRNO: %d, Error: %s\n", desired_address, errno, strerror(errno) );
     exit(1);
   }
 
@@ -66,6 +65,9 @@ int main(int argc, char** argv){
     fprintf( stderr, "Failed to connect to remote: %s\n", desired_address );
     fprintf( stderr, "ERRNO: %d, Error: %s\n", errno, strerror(errno) );
     exit(1);
+  }
+  else {
+    fprintf( stdout, "Successfully connected to remote: %s\n", inet_ntoa(server_address.sin_addr) );
   }
 
   // write(connection, message, strlen(message));   // Save this til read works.

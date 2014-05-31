@@ -41,7 +41,7 @@ int main(int argc, char** argv){
   status = bind(sock, (struct sockaddr *) &server_address, sizeof(server_address));
 
   if(status == -1){
-    fprintf(stderr, "Failed to bind socket, error no: %i\n", errno);
+    fprintf(stderr, "Failed to bind socket, error no: %i, error: %s\n", errno, strerror(errno));
     exit(1);
   }
 
