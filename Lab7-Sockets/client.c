@@ -9,12 +9,11 @@
 #include <unistd.h>
 
 int main(int argc, char** argv){
-  int sock = socket(AF_INET, SOCK_STREAM, 0);
+  int sock = socket(AF_INET, SOCK_STREAM, 0);   // Request a file descriptor for the connection data
   int status, address_len, connection;
   struct sockaddr_in server_address;
   struct sockaddr_in client_address;
   int client_address_len;
-  int accept_count = 0;
   char* desired_address = "127.0.0.1";
   int desired_port = 8080;
   char* message = "Hello world\n";
@@ -36,6 +35,8 @@ int main(int argc, char** argv){
     fprintf(stderr, "Failed to parse address\n");
     exit(1);
   }
+
+  connect( sock, server_address, bool_opt_len );
 
   close(sock);
 
