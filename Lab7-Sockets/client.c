@@ -19,7 +19,6 @@ int main(int argc, char** argv){
   char* message = "Hello world\n";
   int bool_opt;
   socklen_t bool_opt_len = sizeof(bool_opt);
-  pid_t connection_pid;
 
   if(sock == -1){
     fprintf(stderr, "Failed to open socket\n");
@@ -36,7 +35,33 @@ int main(int argc, char** argv){
     exit(1);
   }
 
-  connect( sock, server_address, bool_opt_len );
+  status = connect( sock, (struct sockaddr *) &server_address , bool_opt_len );
+
+  if( status == 0 ){
+    fprintf( stderr, "Failed to connect to remote: %s\n", desired_address );
+    exit(1);
+  }
+
+  // write(connection, message, strlen(message));   // Save til read works.
+
+  size_t buffer_length = 100;
+  char buffer[ buffer_length + 1 ];
+  size_t read_index = 0;
+  ssize_t read_size = 0;
+
+  while( ( read_size = read( sock, buffer + read_index, buffer_length - read_index ) ) != 0 ) {
+    // The complex test on the above line calls read() for an amount of data not exceeding
+    // the remaining amount of space in the buffer, until either the buffer is full, or the
+    // remote stops sending.
+    if( read_size == -1 ) {
+      fprintf( stderr, "A read error occured\n" );
+      exit(1);
+    }
+
+    read_index += read_size;
+  }
+
+  fprintf( stdout, "The remote server transmitted \"%s\"", buffer );
 
   close(sock);
 
