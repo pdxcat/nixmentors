@@ -37,8 +37,9 @@ int main(int argc, char** argv){
 
   status = connect( sock, (struct sockaddr *) &server_address , bool_opt_len );
 
-  if( status == 0 ){
+  if( status == -1 ){
     fprintf( stderr, "Failed to connect to remote: %s\n", desired_address );
+    fprintf( stderr, "ERRNO: %d, Error: %s\n", errno, strerror(errno) );
     exit(1);
   }
 
