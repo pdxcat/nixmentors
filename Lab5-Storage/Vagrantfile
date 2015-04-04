@@ -4,7 +4,6 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   config.vm.define 'sunosfiler1' do |v|
     v.vm.box = 'solaris-11.1'
     v.vm.hostname = 'sunosfiler1.local'
@@ -66,5 +65,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
     end
   end
-
 end
