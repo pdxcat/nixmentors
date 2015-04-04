@@ -4,7 +4,6 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   require 'yaml'
   conf = YAML.load_file('../.nixmentors.yml')
   if conf['local_boxes']
@@ -32,5 +31,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     nfsclient3.vm.hostname = 'nfsclient3.local'
     nfsclient3.vm.network :private_network, ip: '192.168.1.13'
   end
-
 end

@@ -4,7 +4,6 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   require 'yaml'
   conf = YAML.load_file('../.nixmentors.yml')
   if conf['local_boxes']
@@ -27,5 +26,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'fqdn' => 'lab2.vagrant'
     }
   end
-
 end

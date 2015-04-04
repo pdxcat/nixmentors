@@ -4,7 +4,6 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   config.vm.define 'syslogserver' do |syslogserver|
     syslogserver.vm.box = 'centos64'
     syslogserver.vm.hostname = 'syslogserver'
