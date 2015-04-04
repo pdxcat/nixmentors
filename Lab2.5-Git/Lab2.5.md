@@ -613,7 +613,6 @@ Git and Github Etiquette
 - Never force push to a master branch or any branch that anyone may be working on. Use git revert to backtrack your mistakes on public branches.
 - Be polite when working with contributors or maintainers. You do not want to be [this guy](https://gist.github.com/uppfinnarn/9956023).
 - For more about etiquette:
-  - http://jamiethepiper.com/git-commit-good-etiquette/
   - http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 
 <!--
