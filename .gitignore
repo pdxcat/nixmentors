@@ -1,4 +1,3 @@
 *.swp
 .vagrant/
-Gemfile.lock
 .nixmentors.yml
