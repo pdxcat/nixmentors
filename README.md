@@ -17,6 +17,8 @@
 Nix Mentor Sessions
 ===================
 
+[![Build Status](https://travis-ci.org/pdxcat/nixmentors.svg?branch=master)](https://travis-ci.org/pdxcat/nixmentors)
+
 This repository is home to the materials used in the Nix Mentor Sessions run by [theCAT](http://cat.pdx.edu) for the 2014 [Braindump](http://braindump.cat.pdx.edu) year.
 
 
