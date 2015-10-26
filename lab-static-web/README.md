@@ -127,7 +127,7 @@ Sometimes a single tag alone isn't enough to do anything meaningful. An example 
 <a>Wikipedia</a>
 ```
 
-This will display the "Wikipedia" text as a link, but the link won't go anywhere. In most browsers it will just reload the current page. We have to specify at least oen more attribute to give it enough information to make a useful link:
+This will display the "Wikipedia" text as a link, but the link won't go anywhere. In most browsers it will just reload the current page. We have to specify at least one more attribute to give it enough information to make a useful link:
 
 ```html
 <a href="https://en.wikipedia.org/wiki/Main_Page" target="_blank" title="The free encyclopedia">Wikipedia</a>
