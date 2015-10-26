@@ -25,12 +25,12 @@ This repository is home to the materials used in the Nix Mentor Sessions run by 
 Sessions
 --------
 
-* Lab 1: [Intro to Vagrant and Intro to Web](Lab1-Intro-Web-Vagrant/Lab1.md)
-* Lab 2: [Databases and Advanced web](Lab2-Databases/Lab2.md)
-* Lab 2.5: [Intro to Git](Lab2.5-Git/Lab2.5.md)
-* Lab 3: [NFS](Lab3-NFS/Lab3.md)
-* Lab 4: [Monitoring](Lab4-Monitoring/Lab4.md)
-* Lab 5: [Storage](Lab5-Storage/Lab5.md)
+* Lab 1: [Intro to Vagrant and Intro to Web](lab-intro-web-vagrant/README.md)
+* Lab 2: [Databases and Advanced web](lab-databases/README.md)
+* Lab 2.5: [Intro to Git](lab-git/README.md)
+* Lab 3: [NFS](lab-nfs/README.md)
+* Lab 4: [Monitoring](lab-monitoring/README.md)
+* Lab 5: [Storage](lab-storage/README.md)
 
 Setting up Vagrant
 ==================
@@ -56,13 +56,13 @@ Lab 1
 -----
 
 ```bash
-cd Lab1*
+cd lab-intro-web-vagrant
 vagrant up
 vagrant ssh
 sudo -i
 ```
 
-Now proceed to the [Lab1](Lab1-Intro-Web-Vagrant/Lab1.md) instructions.
+Now proceed to the [First Lab](lab-intro-web-vagrant/README.md) instructions.
 
 Note that this will install the base precise64 image into the user's homedir. It will consume 300MB of profile space.
 
@@ -89,4 +89,3 @@ At the end of the lab
 # exit vagrant ssh
 vagrant halt
 ```
-
