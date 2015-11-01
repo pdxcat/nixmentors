@@ -64,7 +64,7 @@ sudo -i
 
 Now proceed to the [First Lab](lab-intro-web-vagrant/README.md) instructions.
 
-Note that this will install the base precise64 image into the user's homedir. It will consume 300MB of profile space.
+Note that this will install the base trusty64 image into the user's homedir. It will consume 300MB of profile space.
 
 Additional Instructions for Alumni accounts
 -------------------------------------------
